@@ -1,5 +1,5 @@
 import axiosClient from '../../../shared/api/axiosClient';
-import type { MovieListResponse } from '../types/movie';
+import type { MovieDetails, MovieListResponse } from '../types/movie';
 
 /**
  * Basadress för TMDB:s bilder. Bilderna ligger på en helt annan domän än API:et,
@@ -23,5 +23,17 @@ export const buildPosterUrl = (posterPath: string | null, size: PosterSize = 'w5
 /** Hämtar populära filmer från TMDB för angiven sida. */
 export const getPopularMovies = async (page = 1): Promise<MovieListResponse> => {
   const { data } = await axiosClient.get<MovieListResponse>('/movie/popular', { params: { page } });
+  return data;
+};
+
+/**
+ * Hämtar en enskild film från TMDB.
+ *
+ * id tas emot som sträng eftersom det kommer från adressfältet och går rakt in i
+ * en adress igen. Att konvertera till number och tillbaka hade bara lagt till ett
+ * felläge (NaN) utan att göra anropet säkrare.
+ */
+export const getMovieDetails = async (id: string): Promise<MovieDetails> => {
+  const { data } = await axiosClient.get<MovieDetails>(`/movie/${id}`);
   return data;
 };
