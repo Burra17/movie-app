@@ -1,27 +1,19 @@
-import { usePopularMovies } from './modules/movies/hooks/usePopularMovies';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MovieListPage } from './modules/movies/pages/movieListPage';
+import { MovieDetailsPage } from './modules/movies/pages/movieDetailsPage';
 
+/**
+ * Appens rotkomponent. Innehåller bara routing — varje sida hämtar sin egen data,
+ * så att App inte växer varje gång en ny vy tillkommer.
+ */
 const App = () => {
-  const { data, isPending, isError, error } = usePopularMovies();
-
-  if (isPending) {
-    return <p>Laddar filmer…</p>;
-  }
-
-  if (isError) {
-    return <p>Kunde inte hämta filmer: {error.message}</p>;
-  }
-
   return (
-    <div>
-      <h1>Movie App</h1>
-      {/* Tillfällig lista som bara verifierar att dataflödet fungerar hela vägen.
-          Den ersätts av en riktig sida i modules/movies/pages i routing-ticketen. */}
-      <ul>
-        {data.results.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
-        ))}
-      </ul>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<MovieListPage />} />
+        <Route path='/movie/:id' element={<MovieDetailsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
