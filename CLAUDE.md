@@ -33,7 +33,7 @@ src/
     api/axiosClient.ts   konfigurerad Axios-instans — all HTTP går genom den
     components/          komponenter som används av flera moduler
     forms/               formulärkomponenter (React Hook Form)
-  styles/                colors.tsx och theme.tsx för MUI-temat (ligger tomma än)
+  styles/                colors.tsx och theme.tsx för MUI-temat
   templates/             sidlayouter, t.ex. pageTemplate.tsx
 ```
 
@@ -122,3 +122,23 @@ Hooken ligger i modulens `hooks/` och kopplar bara ihop query och service. `quer
 5. Merga och dra ticketen till Done
 
 En PR håller sig till en ticket. Dyker något annat upp på vägen blir det en ny ticket, inte en extra fil i den här PR:en.
+
+## Dokumentation
+
+| Fil | Innehåll |
+|---|---|
+| `README.md` | vad projektet är, hur man startar det, kommandon, git-flöde |
+| `docs/ARKITEKTUR.md` | lagren, dataflödet, ansvarsfördelning och motiven bakom dem |
+| `docs/RECEPT.md` | steg för steg för återkommande uppgifter |
+
+**Dokumentationen uppdateras i samma PR som ändringen**, inte efteråt. Ett dokument som beskriver en arkitektur projektet vuxit ifrån är sämre än inget dokument, eftersom det läses som sanning.
+
+Kontrollera efter varje feature om något av följande gäller:
+
+- Nytt lager, ny mapp eller ändrat dataflöde → `ARKITEKTUR.md` avsnitt 1 och 3
+- Nytt bibliotek eller nytt mönster → `ARKITEKTUR.md`, relevant avsnitt
+- Något under "Vad som medvetet inte är gjort" är nu gjort → ta bort den punkten
+- Ändrad uppstart, bygg eller konfiguration → `README.md`
+- Ny datafälla i TMDB:s svar → `ARKITEKTUR.md` avsnitt 10
+
+En ny komponent eller ett nytt endpoint som följer befintliga mönster behöver ingen uppdatering — mönstret är redan beskrivet.
